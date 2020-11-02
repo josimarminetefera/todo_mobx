@@ -10,7 +10,7 @@ abstract class _LoginStore with Store {
     autorun((_) {
       //sempre que tiver uma mudança no e-mail ele vai printar para mim o email
       //print(email);
-      print(formularioValido);
+      //print(formularioValido);
     });
   }
 
@@ -33,6 +33,18 @@ abstract class _LoginStore with Store {
   @action
   void ativarSenhaVisivel() => senhaVisivel = !senhaVisivel;
 
+  @observable
+  bool carregando = false;
+
+  @action
+  Future<void> entrar() async {
+    carregando = true;
+
+    await Future.delayed(Duration(seconds: 2));
+
+    carregando = false;
+  }
+
   //pode ser combinado os computed
   @computed
   bool get emailValida => email.length >= 6;
@@ -42,6 +54,9 @@ abstract class _LoginStore with Store {
   bool get senhaValida => senha.length >= 6;
 
   //operações com mais de um campo que retorna um valor novo
+  //@computed
+  //bool get formularioValido => emailValida && senhaValida;//não preceisa deste pois o Function abaixo já faz isso
+
   @computed
-  bool get formularioValido => emailValida && senhaValida;
+  Function get loginPrecionado => (emailValida && senhaValida && !carregando) ? entrar : null;
 }
