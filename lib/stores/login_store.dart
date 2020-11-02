@@ -43,7 +43,11 @@ abstract class _LoginStore with Store {
     await Future.delayed(Duration(seconds: 2));
 
     carregando = false;
+    logado = true; //todos locais que estão observando o logado seram notificados quando eu alterar o valor para false ou true
   }
+
+  @observable
+  bool logado = false;
 
   //pode ser combinado os computed
   @computed
