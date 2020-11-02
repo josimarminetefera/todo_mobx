@@ -61,6 +61,21 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$senhaVisivelAtom = Atom(name: '_LoginStore.senhaVisivel');
+
+  @override
+  bool get senhaVisivel {
+    _$senhaVisivelAtom.reportRead();
+    return super.senhaVisivel;
+  }
+
+  @override
+  set senhaVisivel(bool value) {
+    _$senhaVisivelAtom.reportWrite(value, super.senhaVisivel, () {
+      super.senhaVisivel = value;
+    });
+  }
+
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
@@ -86,10 +101,22 @@ mixin _$LoginStore on _LoginStore, Store {
   }
 
   @override
+  void ativarSenhaVisivel() {
+    final _$actionInfo = _$_LoginStoreActionController.startAction(
+        name: '_LoginStore.ativarSenhaVisivel');
+    try {
+      return super.ativarSenhaVisivel();
+    } finally {
+      _$_LoginStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
 senha: ${senha},
+senhaVisivel: ${senhaVisivel},
 emailValida: ${emailValida},
 senhaValida: ${senhaValida},
 formularioValido: ${formularioValido}

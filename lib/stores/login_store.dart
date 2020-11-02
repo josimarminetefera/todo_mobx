@@ -26,6 +26,13 @@ abstract class _LoginStore with Store {
   @action
   void setSenha(String valor) => senha = valor;
 
+  @observable
+  bool senhaVisivel = false;
+
+  //troca de false para true ou true para false
+  @action
+  void ativarSenhaVisivel() => senhaVisivel = !senhaVisivel;
+
   //pode ser combinado os computed
   @computed
   bool get emailValida => email.length >= 6;
