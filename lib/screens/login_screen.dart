@@ -5,13 +5,11 @@ import 'package:todomobx/widgets/custom_text_field.dart';
 import 'list_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,29 +31,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       hint: 'E-mail',
                       prefix: Icon(Icons.account_circle),
                       textInputType: TextInputType.emailAddress,
-                      onChanged: (email){
-
-                      },
+                      onChanged: (email) {},
                       enabled: true,
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     CustomTextField(
                       hint: 'Senha',
                       prefix: Icon(Icons.lock),
                       obscure: true,
-                      onChanged: (pass){
-
-                      },
+                      onChanged: (pass) {},
                       enabled: true,
                       suffix: CustomIconButton(
                         radius: 32,
                         iconData: Icons.visibility,
-                        onTap: (){
-
-                        },
+                        onTap: () {},
                       ),
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     SizedBox(
                       height: 44,
                       child: RaisedButton(
@@ -66,17 +62,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Theme.of(context).primaryColor,
                         disabledColor: Theme.of(context).primaryColor.withAlpha(100),
                         textColor: Colors.white,
-                        onPressed: (){
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context)=>ListScreen())
-                          );
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ListScreen()));
                         },
                       ),
                     )
                   ],
                 ),
-              )
-          ),
+              )),
         ),
       ),
     );
