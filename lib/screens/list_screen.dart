@@ -14,6 +14,8 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   ListStore listStore = ListStore();
 
+  final TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,14 +56,21 @@ class _ListScreenState extends State<ListScreen> {
                       children: <Widget>[
                         Observer(builder: (_) {
                           return CustomTextField(
+                            controller: controller,
                             hint: 'Tarefa',
                             onChanged: listStore.setNovoTexto,
                             suffix: listStore.formularioValido
                                 ? CustomIconButton(
-                                    radius: 32,
-                                    iconData: Icons.add,
-                                    onTap: listStore.adicionarLista,
-                                  )
+                              radius: 32,
+                              iconData: Icons.add,
+                              onTap: () {
+                                listStore.adicionarLista();
+                                //sempre que terminar de executar todos widgts da tela ele executa o que esta aqui dentro
+                                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                                  controller.clear();
+                                });
+                              },
+                            )
                                 : null,
                           );
                         }),
@@ -74,12 +83,19 @@ class _ListScreenState extends State<ListScreen> {
                               return ListView.separated(
                                 itemCount: listStore.listaCompleta.length,
                                 itemBuilder: (_, index) {
-                                  return ListTile(
-                                    title: Text(
-                                      listStore.listaCompleta[index],
-                                    ),
-                                    onTap: () {},
-                                  );
+                                  final todo = listStore.listaCompleta[index];
+                                  return Observer(builder: (_) {
+                                    return ListTile(
+                                      title: Text(
+                                        todo.titulo,
+                                        style: TextStyle(
+                                          decoration: todo.feito ? TextDecoration.lineThrough : null,
+                                          color: todo.feito ? Colors.grey : Colors.black,
+                                        ),
+                                      ),
+                                      onTap: todo.acaoFeito,
+                                    );
+                                  });
                                 },
                                 separatorBuilder: (_, __) {
                                   return Divider();

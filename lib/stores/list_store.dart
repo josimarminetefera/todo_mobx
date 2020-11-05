@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:todomobx/stores/todo_store.dart';
 
 part 'list_store.g.dart';
 
@@ -29,10 +30,11 @@ abstract class _ListStore with Store {
   }*/
 
   //para o que esta acima podemos usar o ObservableList
-  ObservableList<String> listaCompleta = ObservableList<String>();
+  ObservableList<TodoStore> listaCompleta = ObservableList<TodoStore>();
 
   @action
   void adicionarLista() {
-    listaCompleta.add(novoTexto);
+    listaCompleta.insert(0, TodoStore(novoTexto));
+    novoTexto = "";
   }
 }
