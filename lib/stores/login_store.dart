@@ -44,6 +44,15 @@ abstract class _LoginStore with Store {
 
     carregando = false;
     logado = true; //todos locais que estão observando o logado seram notificados quando eu alterar o valor para false ou true
+
+    //resetar o email e a senha para o observable não achar que ainda tem valor dentro
+    email = "";
+    senha = "";
+  }
+
+  @action
+  void sair() {
+    logado = false;
   }
 
   @observable
